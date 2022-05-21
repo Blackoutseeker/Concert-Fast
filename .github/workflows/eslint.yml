@@ -33,4 +33,4 @@ jobs:
         run: yarn install
 
       - name: Check code with ESLint
-        run: yarn eslint:check
+        run: yarn eslint
