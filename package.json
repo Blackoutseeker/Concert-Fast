@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prettier:check": "prettier --check \"**/*.{js,jsx,ts,tsx,css,json,md}\"",
+    "prettier:fix": "prettier --write \"**/*.{js,jsx,ts,tsx,css,json,md}\""
   },
   "dependencies": {
     "next": "12.1.6",
