@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { Header } from '@components/index'
 import Styles from '@styles/Home.module.css'
 
 const HomePage: NextPage = () => {
@@ -12,6 +13,7 @@ const HomePage: NextPage = () => {
           content="Concert Fast é uma assistência técnica que preza pela satisfação de seus clientes, sempre oferecendo serviços de qualidade e com preços acessíveis."
         />
       </Head>
+      <Header />
     </div>
   )
 }
