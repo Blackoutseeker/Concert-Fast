@@ -1,0 +1,21 @@
+.headerContainer {
+  @apply sticky top-0 flex justify-center items-center h-14 bg-[#1e1e1e];
+  @apply px-5 z-10 md:justify-between;
+}
+
+.logoContainer {
+  @apply flex items-center h-full;
+}
+
+.title {
+  @apply text-white font-bold text-xl ml-5;
+}
+
+.navContainer {
+  @apply hidden h-full md:flex;
+}
+
+.navButton {
+  @apply flex items-center h-full px-5 text-white font-bold duration-200;
+  @apply bg-[#ffffff] bg-opacity-0 hover:bg-opacity-10;
+}
