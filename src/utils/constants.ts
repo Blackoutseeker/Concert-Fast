@@ -3,5 +3,6 @@ export enum Pages {
   About = '/about',
   SignIn = '/signin',
   SignUp = '/signup',
-  Admin = '/admin'
+  Admin = '/admin',
+  AdminSignIn = '/admin/signin'
 }
