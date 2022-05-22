@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import { HomeDrawer } from '@components/index'
 import Image from 'next/image'
 import Icon from '@assets/images/icon.png'
 import Link from 'next/link'
@@ -8,6 +9,7 @@ import Styles from './HomeHeader.module.css'
 export const HomeHeader: FC = () => {
   return (
     <header className={Styles.headerContainer}>
+      <HomeDrawer />
       <Link href={Pages.Home} passHref>
         <a className={Styles.logoContainer}>
           <Image
@@ -33,6 +35,7 @@ export const HomeHeader: FC = () => {
           <a className={Styles.navButton}>SOBRE NÓS</a>
         </Link>
       </nav>
+      <div className={Styles.spacer} />
     </header>
   )
 }
