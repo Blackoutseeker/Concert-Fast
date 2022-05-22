@@ -1,0 +1,41 @@
+.drawerContainer {
+  @apply fixed top-0 left-0 flex flex-col w-full h-full bg-[#121212] z-20;
+}
+
+.drawerHeader {
+  @apply flex justify-between items-center h-14 bg-[#1e1e1e];
+}
+
+.closeButton {
+  @apply flex justify-center items-center h-full w-14;
+}
+
+.logoContainer {
+  @apply flex items-center h-full;
+}
+
+.title {
+  @apply text-white font-bold text-xl ml-5;
+}
+
+.spacer {
+  @apply w-14;
+}
+
+.listWrapper {
+  @apply flex flex-col h-full;
+}
+
+.listItem {
+  @apply flex w-full items-center p-5 text-white font-bold duration-200;
+  @apply bg-[#ffffff] bg-opacity-0 hover:bg-opacity-10;
+}
+
+.divider {
+  @apply border-white opacity-10 mx-5;
+}
+
+.drawerButton {
+  @apply flex justify-center items-center h-full w-14;
+  @apply md:hidden;
+}
