@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Pages } from '@utils/constants'
 import Styles from './HomeHeader.module.css'
 
-export const Header: FC = () => {
+export const HomeHeader: FC = () => {
   return (
     <header className={Styles.headerContainer}>
       <Link href={Pages.Home} passHref>
