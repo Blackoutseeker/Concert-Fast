@@ -1,0 +1,7 @@
+.aboutCardContainer {
+  @apply flex flex-col max-w-[700px] px-5 py-10 mx-5 bg-[#1e1e1e] rounded-lg;
+}
+
+.aboutText {
+  @apply text-white font-bold italic text-2xl text-justify md:text-3xl;
+}
