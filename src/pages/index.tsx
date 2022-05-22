@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { HomeHeader } from '@components/index'
+import { HomeHeader, Banner, HomeSection } from '@components/index'
 import Styles from '@styles/Home.module.css'
 
 const HomePage: NextPage = () => {
@@ -14,6 +14,9 @@ const HomePage: NextPage = () => {
         />
       </Head>
       <HomeHeader />
+      <Banner>
+        <HomeSection />
+      </Banner>
     </div>
   )
 }
