@@ -1,4 +1,7 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
+} from 'firebase/auth'
 import { auth } from '@utils/firebaseClient'
 
 /**
@@ -20,4 +23,23 @@ export const createUser = async (
       await onError?.(error)
       return undefined
     })
+}
+
+/**
+ * Sign in with email and password
+ * @param {string} email - the user's email
+ * @param {string} password - the user's password
+ * @param {(() => void | Promise<void>) | undefined} onSuccess - a callback that is called when the user is successfully signed in
+ * @param {(error?: Error | undefined) => void | Promise<void> | undefined} onError - a callback that is called when the user is not successfully signed in
+ */
+
+export const signIn = async (
+  email: string,
+  password: string,
+  onSuccess?: () => void | Promise<void>,
+  onError?: (error?: Error) => void | Promise<void>
+) => {
+  await signInWithEmailAndPassword(auth, email, password)
+    .then(onSuccess)
+    .catch(onError)
 }
