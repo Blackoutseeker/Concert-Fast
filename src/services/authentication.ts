@@ -72,3 +72,16 @@ export const signInWithGoogle = async (
     })
     .catch(onError)
 }
+
+/**
+ * Sign out of the current user
+ * @param {(() => void | Promise<void>) | undefined} onSuccess - a callback that is called when the user is successfully signed out
+ * @param {(error?: Error | undefined) => void | Promise<void> | undefined} onError - a callback that is called when the user is not successfully signed out
+ */
+
+export const logOut = async (
+  onSuccess?: () => void | Promise<void>,
+  onError?: (error?: Error) => void | Promise<void>
+) => {
+  await signOut(auth).then(onSuccess).catch(onError)
+}
