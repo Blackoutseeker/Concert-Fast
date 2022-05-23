@@ -1,4 +1,4 @@
-import { ref, get } from 'firebase/database'
+import { ref, get, set } from 'firebase/database'
 import { database } from '@utils/firebaseClient'
 import type { Client } from '@models/index'
 
@@ -45,4 +45,14 @@ export const getClients = async (): Promise<Client[] | undefined> => {
     }
   })
   return undefined
+}
+
+/**
+ * Add a client to the database
+ * @param client - the client to add to the database
+ */
+
+export const setClient = async (client: Client) => {
+  const clientReference = ref(database, `/clients/${client.id}`)
+  await set(clientReference, client)
 }
