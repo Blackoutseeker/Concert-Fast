@@ -1,6 +1,9 @@
 import {
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut
 } from 'firebase/auth'
 import { auth } from '@utils/firebaseClient'
 
@@ -41,5 +44,31 @@ export const signIn = async (
 ) => {
   await signInWithEmailAndPassword(auth, email, password)
     .then(onSuccess)
+    .catch(onError)
+}
+
+/**
+ * Sign in with Google account
+ * @param {(id: string) => boolean | Promise<boolean>} checkIfClientAlreadyHasAccount - a callback that checks if the user already has an account in the database
+ * @param {(() => void | Promise<void>) | undefined} onSuccess - a callback that is called when the user is successfully signed in
+ * @param {(error?: Error | undefined) => void | Promise<void> | undefined} onError - a callback that is called when the user is not successfully signed in
+ */
+
+export const signInWithGoogle = async (
+  checkIfClientAlreadyHasAccount: (id: string) => boolean | Promise<boolean>,
+  onSuccess?: () => void | Promise<void>,
+  onError?: (error?: Error) => void | Promise<void>
+) => {
+  const googleProvider = new GoogleAuthProvider()
+  await signInWithPopup(auth, googleProvider)
+    .then(async ({ user }) => {
+      const alreadyHasAccount = await checkIfClientAlreadyHasAccount(user.uid)
+      if (alreadyHasAccount) {
+        return onSuccess?.()
+      }
+      await signOut(auth).then(async () => {
+        await onError?.()
+      })
+    })
     .catch(onError)
 }
