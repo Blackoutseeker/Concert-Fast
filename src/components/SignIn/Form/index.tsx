@@ -36,13 +36,9 @@ export const SignInForm: FC = () => {
     )
   }
 
-  const isPasswordValid = password.length >= 6
-
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (isPasswordValid) {
-      await handleSignIn()
-    }
+    await handleSignIn()
   }
 
   return (
@@ -66,6 +62,8 @@ export const SignInForm: FC = () => {
           type="password"
           autoComplete="current-password"
           placeholder="Senha"
+          pattern=".{6,}"
+          title="A senha deve conter no mínimo 6 caracteres"
         />
         <input className={Styles.signInButton} type="submit" value="Entrar" />
         <div className={Styles.dividerContainer}>
