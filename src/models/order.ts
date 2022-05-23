@@ -7,7 +7,7 @@ export type Order = {
   client: Client
   equipment: string
   description: string
-  budget: number
+  budget?: number
   orderDate: string
   status: OrderStatus
   dispatchDate: string
