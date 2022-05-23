@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { HomeHeader } from '@components/index'
+import { HomeHeader, SignUpForm } from '@components/index'
 import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
 import { adminAuth } from '@utils/firebaseAdmin'
@@ -19,6 +19,7 @@ const SignUpPage: NextPage = () => {
         />
       </Head>
       <HomeHeader />
+      <SignUpForm />
     </div>
   )
 }
