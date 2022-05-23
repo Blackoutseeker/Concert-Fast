@@ -27,3 +27,22 @@ export const getClient = async (id: string): Promise<Client | undefined> => {
   const client: Client | undefined = await (await get(clientReference)).val()
   return client
 }
+
+/**
+ * Get all clients from the database
+ * @returns {Promise<Client[] | undefined>} the clients if they exist, otherwise `undefined`
+ */
+
+export const getClients = async (): Promise<Client[] | undefined> => {
+  const clientsReference = ref(database, `clients`)
+  get(clientsReference).then(snapshot => {
+    if (snapshot.val() !== null) {
+      const clients: Client[] = []
+      snapshot.forEach(client => {
+        clients.push(client.val())
+      })
+      return clients
+    }
+  })
+  return undefined
+}
