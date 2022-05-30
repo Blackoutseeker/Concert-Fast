@@ -10,5 +10,5 @@ export type Order = {
   budget?: number
   orderDate: string
   status: OrderStatus
-  dispatchDate: string
+  dispatchDate?: string
 }
