@@ -1,7 +1,6 @@
-import type { NextPage } from 'next'
+import type { NextPage, GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { HomeHeader, SignInForm } from '@components/index'
-import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
 import { adminAuth } from '@utils/firebaseAdmin'
 import storage from '@services/storage'
