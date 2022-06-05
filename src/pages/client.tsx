@@ -1,6 +1,7 @@
 import type { NextPage, GetServerSideProps } from 'next'
-import type { Client } from '@models/index'
-import { useState } from 'react'
+import type { Client, Order } from '@models/index'
+import { useState, useEffect } from 'react'
+import { listenClientOrders, getClientOrders } from '@database/order'
 import Head from 'next/head'
 import {
   GrettingHeader,
@@ -17,20 +18,29 @@ import Styles from '@styles/Home.module.css'
 
 interface ClientPageProps {
   client: Client
+  preloadedOrders: Order[]
 }
 
-const ClientPage: NextPage<ClientPageProps> = ({ client }) => {
+const ClientPage: NextPage<ClientPageProps> = ({ client, preloadedOrders }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [orders, setOrders] = useState<Order[] | undefined>(preloadedOrders)
 
   const openModal = () => setIsModalOpen(true)
   const closeModal = () => setIsModalOpen(false)
+
+  useEffect(() => {
+    listenClientOrders(client.id, setOrders).on()
+    return () => {
+      listenClientOrders(client.id, setOrders).off()
+    }
+  }, [client.id])
 
   return (
     <div className={Styles.pageContainer}>
       <Head>
         <title>Meus orçamentos - Concert Fast</title>
       </Head>
-      <GrettingHeader name={client.name} />
+      <GrettingHeader name={client.name} haveOrders={orders !== undefined} />
       <Modal isOpen={isModalOpen} closeModal={closeModal}>
         <ClientForm client={client} closeModal={closeModal} />
       </Modal>
@@ -51,10 +61,12 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     if (uid) {
       const client = await getClient(uid)
+      const preloadedOrders = await getClientOrders(uid)
 
       return {
         props: {
-          client
+          client,
+          preloadedOrders
         }
       }
     }
