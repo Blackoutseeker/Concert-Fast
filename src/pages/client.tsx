@@ -7,7 +7,8 @@ import {
   GrettingHeader,
   FloatingActionButton,
   Modal,
-  ClientForm
+  ClientForm,
+  ClientOrdersList
 } from '@components/index'
 import { parseCookies } from 'nookies'
 import { adminAuth } from '@utils/firebaseAdmin'
@@ -41,6 +42,7 @@ const ClientPage: NextPage<ClientPageProps> = ({ client, preloadedOrders }) => {
         <title>Meus orçamentos - Concert Fast</title>
       </Head>
       <GrettingHeader name={client.name} haveOrders={orders !== undefined} />
+      {orders && <ClientOrdersList orders={orders} />}
       <Modal isOpen={isModalOpen} closeModal={closeModal}>
         <ClientForm client={client} closeModal={closeModal} />
       </Modal>
