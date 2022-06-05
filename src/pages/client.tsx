@@ -1,7 +1,8 @@
 import type { NextPage, GetServerSideProps } from 'next'
 import type { Client } from '@models/index'
+import { useState } from 'react'
 import Head from 'next/head'
-import { GrettingHeader } from '@components/index'
+import { GrettingHeader, Modal, ClientForm } from '@components/index'
 import { parseCookies } from 'nookies'
 import { adminAuth } from '@utils/firebaseAdmin'
 import storage from '@services/storage'
@@ -14,12 +15,19 @@ interface ClientPageProps {
 }
 
 const ClientPage: NextPage<ClientPageProps> = ({ client }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const closeModal = () => setIsModalOpen(false)
+
   return (
     <div className={Styles.pageContainer}>
       <Head>
         <title>Meus orçamentos - Concert Fast</title>
       </Head>
       <GrettingHeader name={client.name} />
+      <Modal isOpen={isModalOpen} closeModal={closeModal}>
+        <ClientForm client={client} closeModal={closeModal} />
+      </Modal>
     </div>
   )
 }
