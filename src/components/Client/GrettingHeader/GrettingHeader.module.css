@@ -1,0 +1,7 @@
+.grettingText {
+  @apply text-white font-bold text-3xl m-5;
+}
+
+.getStartedText {
+  @apply text-white font-bold text-xl mx-5;
+}
