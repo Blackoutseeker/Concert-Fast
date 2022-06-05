@@ -1,0 +1,33 @@
+.containerWrapper {
+  @apply flex w-full justify-center p-5 pb-24;
+}
+
+.listContainer {
+  @apply grid gap-5 grid-cols-1 sm:grid-cols-2;
+  @apply md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-6;
+}
+
+.orderCard {
+  @apply flex flex-col w-full p-5 bg-[#1e1e1e] rounded-md space-y-5;
+}
+
+.orderTitle {
+  @apply text-white font-bold text-opacity-50;
+}
+
+.orderEquipment {
+  @apply text-white font-bold text-xl;
+}
+
+.orderDescription {
+  @apply bg-transparent resize-none outline-none overflow-hidden;
+  @apply text-white text-opacity-50;
+}
+
+.orderLabel {
+  @apply text-white text-opacity-50;
+}
+
+.orderLabelText {
+  @apply text-white;
+}
