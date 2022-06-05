@@ -92,3 +92,33 @@ export const listenClientOrders = (
     off: () => off(clientOrdersReference)
   }
 }
+
+/**
+ * Listen for orders changes in the database
+ * @param setOrders - the function to set the orders
+ * @returns {Listener} `on` and `off` methods
+ */
+
+export const listenOrders = (
+  setOrders: (orders: Order[] | undefined) => void
+): Listener => {
+  const ordersReference = ref(database, 'orders')
+
+  return {
+    on: () =>
+      onValue(ordersReference, snapshot => {
+        const snapshotIsNotEmpty =
+          snapshot.val() !== null && snapshot.val() !== undefined
+        if (snapshotIsNotEmpty) {
+          const orders: Order[] = []
+          snapshot.forEach(order => {
+            orders.push(order.val())
+          })
+          setOrders(orders)
+        } else {
+          setOrders(undefined)
+        }
+      }),
+    off: () => off(ordersReference)
+  }
+}
