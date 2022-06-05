@@ -1,4 +1,4 @@
-import { ref, get } from 'firebase/database'
+import { ref, get, set } from 'firebase/database'
 import { database } from '@utils/firebaseClient'
 import type { Order } from '@models/index'
 
@@ -43,4 +43,15 @@ export const getClientOrders = async (
   })
 
   return clientOrders
+}
+
+/**
+ * Add an order to the database
+ * @param {Order} order - the order to add to the database
+ * @returns {Promise<void>}
+ */
+
+export const setOrder = async (order: Order): Promise<void> => {
+  const orderReference = ref(database, `orders/${order.client.id}/${order.id}`)
+  await set(orderReference, order)
 }
