@@ -2,7 +2,12 @@ import type { NextPage, GetServerSideProps } from 'next'
 import type { Client } from '@models/index'
 import { useState } from 'react'
 import Head from 'next/head'
-import { GrettingHeader, Modal, ClientForm } from '@components/index'
+import {
+  GrettingHeader,
+  FloatingActionButton,
+  Modal,
+  ClientForm
+} from '@components/index'
 import { parseCookies } from 'nookies'
 import { adminAuth } from '@utils/firebaseAdmin'
 import storage from '@services/storage'
@@ -17,6 +22,7 @@ interface ClientPageProps {
 const ClientPage: NextPage<ClientPageProps> = ({ client }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
+  const openModal = () => setIsModalOpen(true)
   const closeModal = () => setIsModalOpen(false)
 
   return (
@@ -28,6 +34,7 @@ const ClientPage: NextPage<ClientPageProps> = ({ client }) => {
       <Modal isOpen={isModalOpen} closeModal={closeModal}>
         <ClientForm client={client} closeModal={closeModal} />
       </Modal>
+      <FloatingActionButton onClick={openModal} />
     </div>
   )
 }
