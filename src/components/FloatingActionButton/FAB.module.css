@@ -1,4 +1,4 @@
 .button {
   @apply fixed bottom-5 right-5 p-4 bg-[#1e1e1e] rounded-full duration-200;
-  @apply hover:bg-green-600;
+  @apply hover:bg-green-600 shadow-md outline-none;
 }
