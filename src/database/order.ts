@@ -1,4 +1,4 @@
-import { ref, get, set } from 'firebase/database'
+import { ref, get, set, Unsubscribe, onValue, off } from 'firebase/database'
 import { database } from '@utils/firebaseClient'
 import type { Order } from '@models/index'
 
@@ -54,4 +54,41 @@ export const getClientOrders = async (
 export const setOrder = async (order: Order): Promise<void> => {
   const orderReference = ref(database, `orders/${order.client.id}/${order.id}`)
   await set(orderReference, order)
+}
+
+interface Listener {
+  on: () => Unsubscribe
+  off: () => void
+}
+
+/**
+ * Listen for client orders changes in the database
+ * @param id - the client id
+ * @param setOrders - the function to set the orders
+ * @returns {Listener} `on` and `off` methods
+ */
+
+export const listenClientOrders = (
+  id: string,
+  setOrders: (orders: Order[] | undefined) => void
+): Listener => {
+  const clientOrdersReference = ref(database, `orders/${id}`)
+
+  return {
+    on: () =>
+      onValue(clientOrdersReference, snapshot => {
+        const snapshotIsNotEmpty =
+          snapshot.val() !== null && snapshot.val() !== undefined
+        if (snapshotIsNotEmpty) {
+          const orders: Order[] = []
+          snapshot.forEach(order => {
+            orders.push(order.val())
+          })
+          setOrders(orders)
+        } else {
+          setOrders(undefined)
+        }
+      }),
+    off: () => off(clientOrdersReference)
+  }
 }
