@@ -1,6 +1,7 @@
 import type { NextPage, GetServerSideProps } from 'next'
 import type { Client } from '@models/index'
 import Head from 'next/head'
+import { GrettingHeader } from '@components/index'
 import { parseCookies } from 'nookies'
 import { adminAuth } from '@utils/firebaseAdmin'
 import storage from '@services/storage'
@@ -12,12 +13,13 @@ interface ClientPageProps {
   client: Client
 }
 
-const ClientPage: NextPage<ClientPageProps> = () => {
+const ClientPage: NextPage<ClientPageProps> = ({ client }) => {
   return (
     <div className={Styles.pageContainer}>
       <Head>
         <title>Meus orçamentos - Concert Fast</title>
       </Head>
+      <GrettingHeader name={client.name} />
     </div>
   )
 }
