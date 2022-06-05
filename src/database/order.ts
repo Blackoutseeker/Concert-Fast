@@ -21,3 +21,26 @@ export const getOrders = async (): Promise<Order[] | undefined> => {
 
   return orders
 }
+
+/**
+ * Get client orders from the database
+ * @param id - the client id
+ * @returns {Promise<Order[] | undefined>} the orders if exist, otherwise `undefined`
+ */
+
+export const getClientOrders = async (
+  id: string
+): Promise<Order[] | undefined> => {
+  const clientOrdersReference = ref(database, `orders/${id}`)
+  const clientOrders: Order[] = []
+
+  await get(clientOrdersReference).then(snapshot => {
+    if (snapshot.val() === null) return undefined
+
+    snapshot.forEach(order => {
+      clientOrders.push(order.val())
+    })
+  })
+
+  return clientOrders
+}
