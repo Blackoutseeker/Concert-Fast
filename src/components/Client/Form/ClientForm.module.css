@@ -1,0 +1,32 @@
+.container {
+  @apply fixed top-0 left-0 flex justify-center items-center w-full h-full bg-white;
+}
+
+.formCard {
+  @apply flex flex-col w-[270px] items-center justify-center;
+  @apply bg-[#1e1e1e] p-5 space-y-5 rounded-md md:w-[450px];
+}
+
+.title {
+  @apply text-white font-bold text-2xl w-full;
+}
+
+.input {
+  @apply w-full h-10 bg-white bg-opacity-5 px-3 rounded-md outline-none;
+  @apply text-white text-lg placeholder:text-[#999];
+}
+
+.textArea {
+  @apply w-full bg-transparent p-3 resize-none outline-none duration-200;
+  @apply text-white text-lg placeholder:text-[#999] border-[1px] border-[#999];
+  @apply hover:bg-white hover:bg-opacity-5;
+}
+
+.textArea::-webkit-scrollbar {
+  @apply hidden;
+}
+
+.submitButton {
+  @apply w-full h-10 bg-green-600 px-2 rounded-md outline-none;
+  @apply text-white font-bold text-lg duration-200 cursor-pointer;
+}
