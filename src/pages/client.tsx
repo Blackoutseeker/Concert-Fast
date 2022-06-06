@@ -1,5 +1,6 @@
 import type { NextPage, GetServerSideProps } from 'next'
 import type { Client, Order } from '@models/index'
+import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { listenClientOrders, getClientOrders } from '@database/order'
 import Head from 'next/head'
@@ -10,7 +11,8 @@ import {
   ClientForm,
   ClientOrdersList
 } from '@components/index'
-import { HiPlus } from 'react-icons/hi'
+import { HiPlus, HiLogout } from 'react-icons/hi'
+import { logOut } from '@services/authentication'
 import { parseCookies } from 'nookies'
 import { adminAuth } from '@utils/firebaseAdmin'
 import storage from '@services/storage'
@@ -24,11 +26,20 @@ interface ClientPageProps {
 }
 
 const ClientPage: NextPage<ClientPageProps> = ({ client, preloadedOrders }) => {
+  const router = useRouter()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [orders, setOrders] = useState<Order[] | undefined>(preloadedOrders)
 
   const openModal = () => setIsModalOpen(true)
   const closeModal = () => setIsModalOpen(false)
+
+  const navigateToHomePage = async () => {
+    await router.push(Pages.Home)
+  }
+
+  const handleLogOut = async () => {
+    await logOut(navigateToHomePage)
+  }
 
   useEffect(() => {
     listenClientOrders(client.id, setOrders).on()
@@ -48,6 +59,11 @@ const ClientPage: NextPage<ClientPageProps> = ({ client, preloadedOrders }) => {
         <ClientForm client={client} closeModal={closeModal} />
       </Modal>
       <FloatingActionButton onClick={openModal} Icon={HiPlus} />
+      <FloatingActionButton
+        onClick={handleLogOut}
+        Icon={HiLogout}
+        position="left"
+      />
     </div>
   )
 }
