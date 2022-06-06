@@ -10,6 +10,7 @@ import {
   ClientForm,
   ClientOrdersList
 } from '@components/index'
+import { HiPlus } from 'react-icons/hi'
 import { parseCookies } from 'nookies'
 import { adminAuth } from '@utils/firebaseAdmin'
 import storage from '@services/storage'
@@ -46,7 +47,7 @@ const ClientPage: NextPage<ClientPageProps> = ({ client, preloadedOrders }) => {
       <Modal isOpen={isModalOpen} closeModal={closeModal}>
         <ClientForm client={client} closeModal={closeModal} />
       </Modal>
-      <FloatingActionButton onClick={openModal} />
+      <FloatingActionButton onClick={openModal} Icon={HiPlus} />
     </div>
   )
 }
