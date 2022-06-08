@@ -5,7 +5,8 @@ import {
   Unsubscribe,
   onValue,
   off,
-  remove
+  remove,
+  update
 } from 'firebase/database'
 import { database } from '@utils/firebaseClient'
 import type { Order } from '@models/index'
@@ -142,4 +143,15 @@ export const listenOrders = (
 export const deleteOrder = async (order: Order): Promise<void> => {
   const orderReference = ref(database, `orders/${order.client.id}/${order.id}`)
   await remove(orderReference)
+}
+
+/**
+ * Update an order in the database
+ * @param order - the order to update in the database
+ * @returns {Promise<void>}
+ */
+
+export const updateOrder = async (order: Order): Promise<void> => {
+  const orderReference = ref(database, `orders/${order.client.id}/${order.id}`)
+  await update(orderReference, order)
 }
