@@ -1,5 +1,6 @@
 .headerContainer {
-  @apply sticky flex justify-center top-0 h-14 py-3 px-5 bg-[#1e1e1e] space-x-5;
+  @apply sticky flex justify-center top-0 h-14 py-3 px-5 bg-[#1e1e1e];
+  @apply space-x-5 shadow-md z-10;
 }
 
 .searchInput {
