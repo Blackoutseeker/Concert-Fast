@@ -111,8 +111,10 @@ export const listenOrders = (
           snapshot.val() !== null && snapshot.val() !== undefined
         if (snapshotIsNotEmpty) {
           const orders: Order[] = []
-          snapshot.forEach(order => {
-            orders.push(order.val())
+          snapshot.forEach(client => {
+            client.forEach(order => {
+              orders.push(order.val())
+            })
           })
           setOrders(orders)
         } else {
