@@ -1,0 +1,12 @@
+.headerContainer {
+  @apply sticky flex justify-center top-0 h-14 py-3 px-5 bg-[#1e1e1e] space-x-5;
+}
+
+.searchInput {
+  @apply w-full px-3 bg-[#2c2c2c] rounded-md text-white;
+  @apply outline-none placeholder:text-[#999];
+}
+
+.logOutButton {
+  @apply flex justify-center items-center w-8 h-8 bg-[#2c2c2c] rounded-full;
+}
