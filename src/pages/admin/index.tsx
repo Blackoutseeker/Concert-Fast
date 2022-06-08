@@ -3,6 +3,7 @@ import type { Order } from '@models/index'
 import { useState, useEffect } from 'react'
 import { listenOrders, getOrders } from '@database/order'
 import Head from 'next/head'
+import { AdminHeader } from '@components/index'
 import { parseCookies } from 'nookies'
 import { adminAuth } from '@utils/firebaseAdmin'
 import storage from '@services/storage'
@@ -14,6 +15,7 @@ interface AdminPageProps {
 }
 
 const AdminPage: NextPage<AdminPageProps> = ({ preloadedOrders }) => {
+  const [searchValue, setSearchValue] = useState<string>('')
   const [orders, setOrders] = useState<Order[] | undefined>(preloadedOrders)
   const handleListenOrders = listenOrders(setOrders)
 
@@ -29,6 +31,7 @@ const AdminPage: NextPage<AdminPageProps> = ({ preloadedOrders }) => {
       <Head>
         <title>Admin - Concert Fast</title>
       </Head>
+      <AdminHeader searchValue={searchValue} setSearchValue={setSearchValue} />
     </div>
   )
 }
