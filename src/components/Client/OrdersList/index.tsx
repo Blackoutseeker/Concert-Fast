@@ -13,7 +13,7 @@ export const ClientOrdersList: FC<ClientOrdersListProps> = ({ orders }) => {
       case 'sent':
         return 'Enviado'
       case 'repairing':
-        return 'Concertando'
+        return 'Consertando'
       case 'dispatched':
         return 'Expedido'
     }
