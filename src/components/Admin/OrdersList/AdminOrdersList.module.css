@@ -1,0 +1,8 @@
+.containerWrapper {
+  @apply flex w-full justify-center p-5;
+}
+
+.listContainer {
+  @apply grid gap-5 grid-cols-1 sm:grid-cols-2;
+  @apply md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-6;
+}
