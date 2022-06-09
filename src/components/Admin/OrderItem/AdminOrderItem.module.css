@@ -1,0 +1,47 @@
+.orderCard {
+  @apply relative flex flex-col w-full p-5 bg-[#1e1e1e] rounded-md space-y-5 z-0;
+}
+
+.deleteButton {
+  @apply flex justify-center items-center bg-[#1e1e1e] duration-200 shadow-md;
+  @apply absolute -top-4 -right-4 w-8 h-8 rounded-full hover:bg-red-700;
+}
+
+.orderTitle {
+  @apply text-white font-bold text-opacity-50;
+}
+
+.orderEquipment {
+  @apply text-white font-bold text-xl;
+}
+
+.orderDescription {
+  @apply bg-transparent resize-none outline-none overflow-hidden;
+  @apply text-white text-opacity-50;
+}
+
+.orderLabel {
+  @apply text-white text-opacity-50;
+}
+
+.orderLabelText {
+  @apply text-white;
+}
+
+.budgetInput {
+  @apply text-white px-2 border-[1px] border-transparent bg-transparent outline-none;
+  @apply duration-200 placeholder:text-[#999] focus:border-[#999];
+}
+
+.orderSelectStatus {
+  @apply text-white p-1 mx-5 bg-transparent border-[1px] border-[#999];
+  @apply outline-none duration-200 hover:bg-[#2c2c2c];
+}
+
+.orderStatusOption {
+  @apply text-white p-1 bg-[#1e1e1e];
+}
+
+.saveButton {
+  @apply text-white font-bold py-2 bg-green-500 rounded-sm;
+}
