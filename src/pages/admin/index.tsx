@@ -2,8 +2,9 @@ import type { NextPage, GetServerSideProps } from 'next'
 import type { Order } from '@models/index'
 import { useState, useEffect } from 'react'
 import { listenOrders, getOrders } from '@database/order'
+import { format } from 'date-fns'
 import Head from 'next/head'
-import { AdminHeader } from '@components/index'
+import { AdminHeader, AdminOrdersList } from '@components/index'
 import { parseCookies } from 'nookies'
 import { adminAuth } from '@utils/firebaseAdmin'
 import storage from '@services/storage'
@@ -26,12 +27,32 @@ const AdminPage: NextPage<AdminPageProps> = ({ preloadedOrders }) => {
     }
   }, [handleListenOrders, orders])
 
+  const filterOrdersBySearchValue = (order: Order) => {
+    if (order.client) {
+      const searchValueLowerCase = searchValue.toLowerCase()
+      const clientName = order.client.name.toLowerCase()
+      const orderEquipment = order.equipment.toLowerCase()
+      const orderId = order.id.toLowerCase()
+      const orderDate = format(new Date(order.orderDate), 'dd/MM/yyyy - HH:mm')
+      return (
+        clientName.includes(searchValueLowerCase) ||
+        orderEquipment.includes(searchValueLowerCase) ||
+        orderId.includes(searchValueLowerCase) ||
+        orderDate.includes(searchValueLowerCase)
+      )
+    }
+    return false
+  }
+
+  const filteredOrders = orders?.filter(filterOrdersBySearchValue)
+
   return (
     <div className={Styles.pageContainer}>
       <Head>
         <title>Admin - Concert Fast</title>
       </Head>
       <AdminHeader searchValue={searchValue} setSearchValue={setSearchValue} />
+      {filteredOrders && <AdminOrdersList orders={filteredOrders} />}
     </div>
   )
 }
