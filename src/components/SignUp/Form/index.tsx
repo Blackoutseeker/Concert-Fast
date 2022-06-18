@@ -1,4 +1,4 @@
-import { FC, useState, FormEvent } from 'react'
+import { FC, useState, useRef, FormEvent, ChangeEvent } from 'react'
 import { useRouter } from 'next/router'
 import { Pages } from '@utils/constants'
 import { Client } from '@models/index'
@@ -15,6 +15,7 @@ export const SignUpForm: FC = () => {
   const [phone, setPhone] = useState<string>('')
   const [address, setAddress] = useState<string>('')
   const [showErrorBox, setShowErrorBox] = useState<boolean>(false)
+  const phoneInputRef = useRef<HTMLInputElement>(null)
 
   const showError = () => {
     setShowErrorBox(true)
@@ -48,6 +49,41 @@ export const SignUpForm: FC = () => {
   }
 
   const phonePattern: RegExp = /^\(([0-9]{2})\) ([0-9]{5})-([0-9]{4})$/g
+  const allowedPhoneCharacters: RegExp = /^(([0-9]*)|\(|\)| |-)*$/g
+
+  const handlePhoneInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault()
+    const { value } = event.target
+
+    if (allowedPhoneCharacters.test(value)) {
+      let newPhoneValue: string = value
+
+      if (phone.length <= value.length) {
+        if (value.length === 1 && value !== '(') {
+          newPhoneValue = value.slice(0, 0) + '(' + value.slice(0, 1)
+        }
+
+        if (value.length === 3 && value !== ')') {
+          newPhoneValue = value.slice(0, 3) + ') ' + value.slice(3)
+        }
+
+        if (value.length === 10 && value !== '-') {
+          newPhoneValue = value.slice(0, 10) + '-' + value.slice(10)
+        }
+      }
+
+      if (newPhoneValue.length < 16) {
+        setPhone(newPhoneValue)
+      }
+
+      if (phoneInputRef.current) {
+        setTimeout(() => {
+          phoneInputRef.current!.selectionStart =
+            phoneInputRef.current!.selectionEnd = newPhoneValue.length
+        }, 0)
+      }
+    }
+  }
 
   return (
     <div className={Styles.formWrapper}>
@@ -85,15 +121,14 @@ export const SignUpForm: FC = () => {
         <input
           className={Styles.input}
           value={phone}
-          onChange={event => {
-            setPhone(event.target.value)
-          }}
+          onChange={handlePhoneInputChange}
           required
-          type="text"
+          type="tel"
           autoComplete="tel"
           placeholder="Número de celular"
           pattern={phonePattern.source}
           title="Número de celular no formato (xx) xxxxx-xxxx"
+          ref={phoneInputRef}
         />
         <input
           className={Styles.input}
